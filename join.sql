@@ -67,3 +67,24 @@ FROM
 WHERE t.title = 'Manager'
 ORDER BY e.emp_no;
 
+-- How many male and how many female managers do we have in the ‘employees’ database
+SELECT
+    e.gender, COUNT(dm.emp_no)
+FROM
+    employees e
+        JOIN
+    dept_manager dm ON e.emp_no = dm.emp_no
+GROUP BY gender;
+
+-- Extract the information about all department managers who were hired between the 1st of January 1990 and the 1st of January 1995
+SELECT
+    *
+FROM
+    dept_manager
+WHERE
+    emp_no IN (SELECT
+            emp_no
+        FROM
+            employees
+        WHERE
+            hire_date BETWEEN '1990-01-01' AND '1995-01-01');
